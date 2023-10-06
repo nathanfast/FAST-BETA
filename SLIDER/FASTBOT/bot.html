@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>BEAT // CHATBOT</title>
+    <link rel="icon" type="image/ico" href="img/logo-bg.png">
+    <style>
+        @font-face {
+            font-family: 'FASTFONT';
+            src: url('font/PPNeueMontreal-Medium.woff2') format('woff2'),
+                /* WOFF2-Format */
+                url('font/PPNeueMontreal-Medium.woff') format('woff');
+            /* WOFF-Format */
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .bot-message {
+            background-color: #292929;
+            /* Hintergrundfarbe für Bot-Nachrichten */
+            color: white;
+            /* Textfarbe für Bot-Nachrichten */
+            border-radius: 10px;
+            /* Abgerundete Ecken */
+            padding: 10px;
+            /* Innenabstand für Bot-Nachrichten */
+            margin-bottom: 10px;
+            /* Abstand zwischen Nachrichten */
+        }
+
+        /* Benutzer-Nachrichten */
+        .user-message {
+            background-color: #eee;
+            /* Hintergrundfarbe für Benutzer-Nachrichten */
+            color: black;
+            /* Textfarbe für Benutzer-Nachrichten */
+            border-radius: 10px;
+            /* Abgerundete Ecken */
+            padding: 10px;
+            /* Innenabstand für Benutzer-Nachrichten */
+            margin-bottom: 10px;
+            /* Abstand zwischen Nachrichten */
+        }
+
+        #chat-container {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: auto;
+            right: 80px;
+            /* Ändern Sie den Wert, um das Chat-Fenster weiter links zu positionieren */
+            width: 450px;
+            height: 400px;
+            background-color: white;
+            border: 1px solid #000000;
+            border-radius: 10px;
+            font-family: 'FASTFONT', Arial, sans-serif;
+        }
+
+        #chat-output {
+            /* Veränderte Höhe und overflow-Eigenschaften */
+            height: calc(100% - 160px);
+            /* Berechnet die verbleibende Höhe abzüglich der Eingabeleiste */
+            overflow-y: scroll;
+            padding: 10px;
+            /* Innenabstand für den Chatverlaufsbereich */
+        }
+
+        #chat-input-container {
+            background-color: black;
+            border-radius: 10px;
+            padding: 15px 10px;
+            width: calc(100% - 20px);
+            position: relative;
+        }
+
+        #user-input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid black;
+            border-radius: 10px;
+            color: black;
+            position: absolute;
+            bottom: 60px;
+            /* Vergrößert den Abstand nach unten auf 50px */
+            left: 10px;
+            /* Vergrößert den Abstand nach links auf 10px */
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+
+        #user-input:focus {
+            border-color: black;
+        }
+
+
+        #send-button {
+            width: 150px;
+            /* Breite des Senden-Buttons */
+            height: 40px;
+            /* Höhe des Senden-Buttons */
+            margin: 10px auto 0;
+            /* Zentriert den Button horizontal und fügt 10px Abstand oben hinzu */
+            display: block;
+            /* Stellt den Button als Blockelement dar */
+            border: none;
+            /* Entfernt die Standard-Rahmenlinie */
+            border-radius: 20px;
+            /* Abgerundete Ecken */
+            background-color: #292929;
+            /* Hintergrundfarbe des Buttons */
+            color: white;
+            /* Textfarbe auf Weiß ändern */
+            cursor: pointer;
+            /* Zeigt den Mauszeiger als Zeiger an */
+            position: absolute;
+            /* Positionierung absolut setzen */
+            bottom: 10px;
+            /* Unten anheften */
+            left: 50%;
+            /* Horizontal zentrieren */
+            transform: translateX(-50%);
+            /* Horizontal zentrieren */
+            transition: background-color 0.3s;
+            /* Hinzugefügte Übergangseigenschaft */
+        }
+
+        #send-button:hover {
+            /* Stilregeln beim Hovern */
+            background-color: #000000;
+            /* Neue Hintergrundfarbe beim Hovern */
+        }
+
+        #chat-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-image: url('img/kreis.png');
+            background-size: cover;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.3s;
+            /* Hinzugefügte Übergangseigenschaft */
+        }
+
+        #chat-icon:hover {
+            /* Stilregeln beim Hovern */
+            transform: scale(1.1);
+            /* Vergrößert das Icon um 10% beim Hovern */
+        }
+
+        .impressum {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            background: #eee;
+            border-top-left-radius: 0.5em;
+            box-shadow: 0 0 2px #c8c8c8;
+            font-family: FASTFONT;
+        }
+
+        .impressum p {
+            margin: 0 0.5em;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chat-icon" onclick="toggleChat()"></div>
+
+    <div id="chat-container">
+        <div id="chat-output"></div>
+        <input type="text" id="user-input" placeholder="schreiben..." autofocus>
+        <button onclick="sendMessage()" id="send-button">Senden</button>
+    </div>
+
+    <script>
+        const chatContainer = document.getElementById('chat-container');
+        const chatOutput = document.getElementById('chat-output');
+        chatOutput.innerHTML = '<div class="bot-message">FAST//BOT: Willkommen, welchen Beatstyle suchen Sie?</div>';
+        let step = 1;
+        let moodCode = '';
+        let instrumentCodes = '';
+
+        document.getElementById('user-input').addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function openChatOnLoad() {
+            chatContainer.style.display = 'block';
+        }
+
+        // Rufen Sie die Funktion beim Laden der Seite auf
+        openChatOnLoad();
+
+        function toggleChat() {
+            chatContainer.style.display = (chatContainer.style.display === 'none') ? 'block' : 'none';
+        }
+
+        function sendMessage() {
+            const userInput = document.getElementById('user-input').value.toLowerCase();
+
+            switch (step) {
+                case 1:
+                    chatOutput.innerHTML += `<div class="user-message">Benutzer: ${userInput}</div>`;
+
+                    // Mapping von Mood zu dreistelligen Zahlen
+                    const moodMap = {
+                        hard: '246',
+                        angry: '218',
+                        atmospheric: '217',
+                        bouncy: '219',
+                        crazy: '220',
+                        deep: '245',
+                        epic: '223',
+                        experimental: '232',
+                        dark: '221',
+                        dirty: '257',
+                        dream: '303',
+                        energetic: '222',
+                        futuristic: '233',
+                        inspiring: '248',
+                        melodical: '254',
+                        peaceful: '224',
+                        relaxed: '225',
+                        happy: '253',
+                        sad: '226',
+                        soulful: '227',
+                    };
+
+                    if (moodMap[userInput]) {
+                        moodCode = moodMap[userInput];
+                        chatOutput.innerHTML += '<div class="bot-message">FAST//BOT: Welche Instrumente sollen im Beat vorkommen? (z.B. Metal, Strings)</div>';
+                        step = 2;
+                    } else {
+                        chatOutput.innerHTML += `
+                        <div class="bot-message">
+                            FAST//BOT: Bitte wählen Sie unter folgenden Stimmungen:
+                            <ul class="bot-message-list">
+                                <li>hard</li>
+                                <li>angry</li>
+                                <li>atmospheric</li>
+                                <li>bouncy</li>
+                                <li>crazy</li>
+                                <li>deep</li>
+                                <li>epic</li>
+                                <li>experimental</li>
+                                <li>dark</li>
+                                <li>dirty</li>
+                                <li>dream</li>
+                                <li>energetic</li>
+                                <li>futuristic</li>
+                                <li>inspiring</li>
+                                <li>melodical</li>
+                                <li>peaceful</li>
+                                <li>relaxed</li>
+                                <li>happy</li>
+                                <li>sad</li>
+                                <li>soulful</li>
+                                </ul>
+                                </div>`;
+
+                    }
+                    break;
+
+                case 2:
+                    chatOutput.innerHTML += `<div class="user-message">Benutzer: ${userInput}</div>`;
+
+                    // Mapping von Instrumenten zu dreistelligen Zahlen
+                    const instrumentMap = {
+                        metal: '258',
+                        strings: '252',
+                        bells: '235',
+                        brass: '236',
+                        choir: '250',
+                        clarinet: '251',
+                        flute: '229',
+                        guitar: '228',
+                        harp: '231',
+                        keys: '247',
+                        orchestral: '240',
+                        organ: '241',
+                        pad: '242',
+                        percussion: '243',
+                        piano: '230',
+                        sitar: '238',
+                        synth: '234',
+                        trumpet: '255',
+                        violin: '237',
+                        vocal: '239',
+                        woodwinds: '244',
+                        // Weitere Instrumente hier hinzufügen
+                    };
+
+                    if (instrumentMap[userInput]) {
+                        instrumentCodes += instrumentMap[userInput] + '+';
+                        chatOutput.innerHTML += '<div class="bot-message">FAST//BOT: Möchten Sie weitere Instrumente hinzufügen? (Ja/Nein)</div>';
+                        step = 3; // Zurück zur Frage nach weiteren Instrumenten
+                    } else {
+                        chatOutput.innerHTML += '<div class="bot-message">FAST//BOT: Bitte wählen Sie eines der folgenden Instrumente: metal, strings, bells, brass, choir, clarinet, flute, guitar, harp, keys, orchestral, organ, pad, percussion, piano, sitar, synth, trumpet, violin, vocal, woodwinds</div>';
+                        step = 2;
+                    }
+                    break;
+
+                case 3:
+                    chatOutput.innerHTML += `<div class="user-message">Benutzer: ${userInput}</div>`;
+
+                    if (userInput === 'ja') {
+                        chatOutput.innerHTML += '<div class="bot-message">FAST//BOT: Welche Instrumente möchten Sie hinzufügen? (z.B. Drums, Piano)</div>';
+                        step = 2; // Zurück zur Instrumentenfrage
+                    } else if (userInput === 'nein') {
+                        // Erzeugen Sie den Link mit Mood und ausgewählten Instrumenten
+                        const link = `https://beats-download.com/beats/?filters=product_cat[${instrumentCodes}${moodCode}]`;
+                        chatOutput.innerHTML += `<div class="bot-message">FAST//BOT: DU WIRST JETZT AUTOMATISCH WEITERGELEITET!</div>`;
+                        chatOutput.innerHTML += '<div class="bot-message">FAST//BOT: Viel Spaß beim Hören!</div>';
+                        setTimeout(() => { window.location.href = link; }, 1000); // Automatische Weiterleitung nach 1 Sekunde
+                        step = 5; // Endzustand
+                    } else {
+                        chatOutput.innerHTML += '<div class="bot-message">FAST//BOT: Bitte antworten Sie mit "Ja" oder "Nein".</div>';
+                    }
+                    break;
+
+                case 5:
+                    // Der Endzustand, keine weiteren Aktionen erforderlich
+                    step = 1;
+                    break;
+            }
+
+            // Zurücksetzen des Benutzereingabefelds
+            document.getElementById('user-input').value = '';
+
+            chatOutput.scrollTop = chatOutput.scrollHeight;
+        }
+
+        // Zurücksetzen des Benutzereingabefelds
+        document.getElementById('user-input').value = '';
+    </script>
+    <div class="impressum">
+        <p class="text-muted">
+            POWERED AND CREATED BY <a href="https://fastnathan.com">NATHAN // FAST</a>
+        </p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROFILE // MAKER</title>
+    <link rel="icon" type="image/ico" href="img/logo-bg.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Font Awesome CSS -->
+    <style>
+        @font-face {
+            font-family: 'FASTFONT';
+            src: url('font/PPNeueMontreal-Medium.woff2') format('woff2'),
+                url('font/PPNeueMontreal-Medium.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'FASTFONT', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .left-section {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+
+        .right-section {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #postForm {
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        button[type="button"] {
+            padding: 10px 20px;
+            background-color: #292929;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        button[type="button"]:hover {
+            background-color: #000000;
+            transform: scale(1.05);
+        }
+
+        .post {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            /* Text linksbündig */
+        }
+
+        .post p {
+            margin: 0;
+            font-family: 'FASTFONT', sans-serif;
+            /* FASTFONT für den Post-Text */
+        }
+
+        .post button {
+            margin-top: 10px;
+        }
+
+        .like-icon,
+        .dislike-icon {
+            margin-right: 10px;
+            /* Adjust this value as needed */
+            cursor: pointer;
+        }
+
+        .like-dislike-icons {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .like-dislike-count {
+            font-weight: bold;
+            margin-left: 5px;
+            /* Adjust this value as needed */
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            text-align: left;
+        }
+
+        label,
+        input {
+            display: block;
+            margin: 10px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #292929;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        .impressum {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            background: #eee;
+            border-top-left-radius: 0.5em;
+            box-shadow: 0 0 2px #c8c8c8;
+            font-family: FASTFONT;
+        }
+
+        .impressum p {
+            margin: 0 0.5em;
+            font-size: 12px;
+        }
+
+        /* CSS-Regel für den Abstand zwischen "BENUTZER:" und dem Post-Text */
+        .post-text {
+            margin-left: 10px;
+            /* Hier können Sie den gewünschten Abstand einstellen */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left-section">
+            <h1>Profil erstellen</h1>
+            <form id="profileForm">
+                <label for="profileImage">Profilbild:</label>
+                <input type="file" id="profileImage" name="profileImage">
+
+                <label for="Nickname:">Nickname:</label>
+                <input type="text" id="Nickname" name="Nickname">
+
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="age">Alter:</label>
+                <input type="number" id="age" name="age" required>
+
+                <label for="hobby">Hobby:</label>
+                <input type="text" id="hobby" name="hobby">
+
+                <label for="Wohnort">Wohnort:</label>
+                <input type="text" id="Wohnort" name="Wohnort">
+
+                <label for="Geburtsjahr">Geburtsjahr:</label>
+                <input type="text" id="Geburtsjahr" name="Geburtsjahr">
+
+                <label for="Lieblingsessen:">Lieblingsessen:</label>
+                <input type="text" id="Lieblingsessen" name="Lieblingsessen">
+
+                <label for="backgroundColor">Hintergrundfarbe:</label>
+                <input type="color" id="backgroundColor" name="backgroundColor" value="#f0f0f0">
+
+
+
+
+                <button type="button" onclick="createProfile()">Profil erstellen</button>
+            </form>
+        </div>
+
+        <div class="right-section">
+            <h1>Fiktive Posts</h1>
+            <div id="postForm">
+                <textarea id="postText" placeholder="Schreibe deinen Post hier..." rows="4"></textarea>
+                <label for="postImage">Bild hinzufügen:</label>
+                <input type="file" id="postImage" name="postImage" accept="image/*">
+
+                <button type="button" onclick="createPost()">Post erstellen</button>
+            </div>
+            <div id="postList"></div>
+        </div>
+
+        <script>
+            let postIdCounter = 0; // Eindeutige ID-Zähler für Posts
+
+            function createPost() {
+                const postText = document.getElementById('postText').value;
+                const postImageInput = document.getElementById('postImage');
+                const postImageFile = postImageInput.files[0];
+
+                if (postText.trim() !== "") {
+                    const postList = document.getElementById('postList');
+                    const postItem = document.createElement('div');
+                    postIdCounter++; // Erhöhen Sie den eindeutigen ID-Zähler für jeden Post
+                    postItem.classList.add('post');
+                    postItem.innerHTML = `
+                        <img src="${URL.createObjectURL(postImageFile)}" alt="Post-Bild" style="max-width: 100%; height: auto;">
+                        <div class="like-dislike-icons">
+                            <i class="fas fa-thumbs-up like-icon" onclick="likePost(${postIdCounter})"></i>
+                            <span class="like-dislike-count" id="likeCount${postIdCounter}">0</span>
+                            <i class="fas fa-thumbs-down dislike-icon" onclick="dislikePost(${postIdCounter})"></i>
+                            <span class="like-dislike-count" id="dislikeCount${postIdCounter}">0</span>
+                        </div>
+                        <p><strong>BENUTZER:</strong><span class="post-text">${postText}</span></p>
+                        <button class="delete-button" onclick="deletePost(this)">Löschen</button>
+                    `;
+                    postList.appendChild(postItem);
+
+                    document.getElementById('postText').value = "";
+                    postImageInput.value = "";
+                }
+            }
+
+            function deletePost(button) {
+                const postItem = button.parentNode;
+                const postList = document.getElementById('postList');
+                postList.removeChild(postItem);
+            }
+
+            // Verfolgen Sie Likes und Dislikes für jeden Post
+            const likeCounts = {};
+            const dislikeCounts = {};
+
+            function likePost(postId) {
+                if (!likeCounts[postId]) {
+                    likeCounts[postId] = 0;
+                }
+                likeCounts[postId]++;
+                const likeCountSpan = document.getElementById(`likeCount${postId}`);
+                likeCountSpan.textContent = likeCounts[postId];
+            }
+
+            function dislikePost(postId) {
+                if (!dislikeCounts[postId]) {
+                    dislikeCounts[postId] = 0;
+                }
+                dislikeCounts[postId]++;
+                const dislikeCountSpan = document.getElementById(`dislikeCount${postId}`);
+                dislikeCountSpan.textContent = dislikeCounts[postId];
+            }
+        </script>
+    </div>
+
+    <h2>Erstellte Profile:</h2>
+    <ul id="profileList"></ul>
+
+    <script>
+        function createProfile() {
+            const Nickname = document.getElementById('Nickname').value;
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const hobby = document.getElementById('hobby').value;
+            const Wohnort = document.getElementById('Wohnort').value;
+            const Geburtsjahr = document.getElementById('Geburtsjahr').value;
+            const Lieblingsessen = document.getElementById('Lieblingsessen').value;
+            const backgroundColor = document.getElementById('backgroundColor').value;
+
+
+            const profile = {
+                Nickname: Nickname,
+                name: name,
+                age: age,
+                hobby: hobby,
+                Wohnort: Wohnort,
+                Geburtsjahr: Geburtsjahr,
+                Lieblingsessen: Lieblingsessen
+            };
+
+            const profileImageInput = document.getElementById('profileImage');
+            const profileImageFile = profileImageInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function () {
+                const newTab = window.open("", "_blank");
+                newTab.document.write(`
+
+                <html>
+            <head>
+                <title>Profil</title>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+                <style>
+                    /* CSS-Stil für das Layout mit zwei Hälften */
+                    body {
+                        font-family: 'FASTFONT', sans-serif;
+                        margin: 0;
+                        padding: 0;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        min-height: 100vh;
+                        background-color: ${backgroundColor}; /* Setzen Sie die Hintergrundfarbe */
+                    }
+                    .container {
+                        display: flex;
+                        justify-content: center; /* In der Mitte des Bildschirms zentriert */
+                        align-items: flex-start; /* Oben ausgerichtet */
+                        max-width: 1200px;
+                        padding: 20px;
+                        width: 80%; /* Anpassen der Breite */
+                        box-sizing: border-box;
+                        gap: 20px; /* Abstand zwischen den beiden Abschnitten hinzufügen */
+                    }
+                    .left-section,
+                    .right-section {
+                        background-color: #fff;
+                        border-radius: 10px;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                        padding: 20px;
+                        flex: 1;
+                    }
+                    /* Stil für die Profilinformationen */
+                    .profile-info {
+                        text-align: center;
+                    }
+                    /* Stil für Daumen-Icons und Zähler */
+                    .like-dislike-icons {
+                        display: flex;
+                        align-items: center;
+                        margin-top: 15px;
+                    }
+                    
+                    .like-icon,
+                    .dislike-icon {
+                        margin-right: 10px;
+                        cursor: pointer;
+                    }
+                    
+                    .like-dislike-count {
+                        font-weight: bold;
+                        margin-left: 5px;
+                    }
+                    .delete-button {
+                        display: none;
+                    }
+                    .post-text {
+                        margin-left: 10px; /* Hier können Sie den gewünschten Abstand einstellen */
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <!-- Linke Hälfte für Profil -->
+                    <div class="left-section">
+                        <div class="profile-info">
+                            <h2>Profilinformationen</h2>
+                            <div style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden; margin: 0 auto 20px;">
+                                <img src="${reader.result}" alt="Profilbild" style="max-width: 100%; height: auto;">
+                            </div>
+                            <p><strong>Nickname:</strong> ${profile.Nickname}</p>
+                            <p><strong>Name:</strong> ${profile.name}</p>
+                            <p><strong>Alter:</strong> ${profile.age}</p>
+                            <p><strong>Hobby:</strong> ${profile.hobby}</p>
+                            <p><strong>Wohnort:</strong> ${profile.Wohnort}</p>
+                            <p><strong>Geburtsjahr:</strong> ${profile.Geburtsjahr}</p>
+                            <p><strong>Lieblingsessen:</strong> ${profile.Lieblingsessen}</p>
+                        </div>
+                    </div>
+
+                    <!-- Rechte Hälfte für Posts -->
+                    <div class="right-section">
+                        <h2>Erstellte Posts:</h2>
+                        <div id="postList">
+                            <!-- Hier werden die Posts eingefügt -->
+                        </div>
+                    </div>
+                </div>
+            </body>
+        </html>
+
+    `);
+
+
+                // Die erstellten Posts in den neuen Tab einfügen
+                const postList = newTab.document.getElementById('postList');
+                const posts = document.querySelectorAll('.post');
+                posts.forEach(post => {
+                    postList.appendChild(post.cloneNode(true));
+                });
+
+                newTab.document.close();
+            };
+
+
+            reader.readAsDataURL(profileImageFile);
+
+            const profileList = document.getElementById('profileList');
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `
+                <strong>Nickname:</strong> ${profile.Nickname}<br>
+                <strong>Name:</strong> ${profile.name}<br>
+                <strong>Alter:</strong> ${profile.age}<br>
+                <strong>Hobby:</strong> ${profile.hobby}<br>
+                <strong>Wohnort:</strong> ${profile.Wohnort}<br>
+                <strong>Geburtsjahr:</strong> ${profile.Geburtsjahr}
+                <strong>Lieblingsessen:</strong> ${profile.Lieblingsessen}
+            `;
+            profileList.appendChild(listItem);
+
+            document.getElementById('profileForm').reset();
+        }
+    </script>
+    <div class="impressum">
+        <p class="text-muted">
+            POWERED AND CREATED BY <a href="https://fastnathan.com">NATHAN // FAST</a>
+        </p>
+    </div>
+</body>
+
+</html>

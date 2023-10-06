@@ -1,0 +1,13 @@
+.impressum {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background: #eee;
+  border-top-left-radius: 0.5em;
+  box-shadow: 0 0 2px #c8c8c8;
+}
+
+.impressum p {
+  margin: 0 0.5em;
+  font-size: 12px;
+}
