@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Passwort Chatbot</title>
+    <style>
+        @font-face {
+            font-family: 'FASTFONT';
+            src: url('font/PPNeueMontreal-Medium.woff2') format('woff2'),
+                /* WOFF2-Format */
+                url('font/PPNeueMontreal-Medium.woff') format('woff');
+            /* WOFF-Format */
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'FASTFONT', sans-serif; /* Ersetzen Sie 'CustomFont' durch den tatsächlichen Font-Namen und Pfad */
+            background-color: #f0f0f0;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        #chat-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #user-input {
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        #send-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            font-size: 18px;
+            background-color: #292929;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        #send-button:hover {
+            background-color: #000000;
+        }
+
+        .bot-message {
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="chat-container">
+        <h1>FAST // BETA</h1>
+        <div id="chat-output"></div>
+        <input type="password" id="user-input" placeholder="ENTER PASSWORD..." autofocus onkeydown="checkEnter(event)">
+        <button onclick="checkPassword()" id="send-button">ENTER</button>
+    </div>
+
+    <script>
+        const chatContainer = document.getElementById('chat-container');
+        const chatOutput = document.getElementById('chat-output');
+
+        const storedPassword = 'N//F2023';
+
+        chatOutput.innerHTML = '<div class="bot-message">PLEASE ENTER THE PASSWORD.</div>';
+
+        function checkPassword() {
+            const userInput = document.getElementById('user-input').value.trim();
+
+            if (userInput === storedPassword) {
+                const link = 'SLIDER/index.html';
+                chatOutput.innerHTML = '<div class="bot-message">CORRECT. YOU WILL BE REDIRECTED.</div>';
+                setTimeout(() => { window.location.href = link; }, 1000);
+            } else {
+                chatOutput.innerHTML = '<div class="bot-message">WRONG PASSWORD. PLEASE TRY AGAIN.</div>';
+            }
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                checkPassword();
+            }
+        }
+    </script>
+</body>
+
+</html>
