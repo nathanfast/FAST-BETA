@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FAST//VIDEO</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .video-container {
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+        }
+        video {
+            width: 100%;
+        }
+        .title-and-logo {
+            text-align: center;
+            padding: 10px;
+        }
+        h1 {
+            font-family: "Arial", sans-serif;
+            font-size: 24px;
+        }
+        .logo {
+            max-width: 100px;
+            margin: 0 auto;
+        }
+        .dropdowns {
+            display: flex;
+            justify-content: center;
+        }
+        select {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="title-and-logo">
+        <img src="logo.png" alt="Logo" class="logo">
+        <h1>Downton Abbey S1E3</h1>
+    </div>
+    <div class="video-container">
+        <video controls autoplay>
+            <source src="https://dl.streamcloud.club/files/tvshows/720p/6195193358607cdfb9facecc-e3.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div class="dropdowns">
+        <select id="season-dropdown">
+            <option value="season1">Staffel 1</option>
+            <option value="season2">Staffel 2</option>
+            <option value="season3">Staffel 3</option>
+            <option value="season4">Staffel 4</option>
+            <option value="season5">Staffel 5</option>
+            <option value="season6">Staffel 6</option>
+            <!-- Weitere Staffeln hier hinzufügen -->
+        </select>
+        <select id="episode-dropdown">
+            <option value="episode1">Folge 1</option>
+            <option value="episode2">Folge 2</option>
+            <option value="episode3">Folge 3</option>
+            <option value="episode4">Folge 4</option>
+            <option value="episode5">Folge 5</option>
+            <option value="episode6">Folge 6</option>
+            <option value="episode7">Folge 7</option>
+            <!-- Weitere Folgen hier hinzufügen -->
+        </select>
+    </div>
+
+    <script>
+        const seasonDropdown = document.getElementById("season-dropdown");
+        const episodeDropdown = document.getElementById("episode-dropdown");
+
+        seasonDropdown.addEventListener("change", function () {
+            const selectedSeason = seasonDropdown.value;
+            // Hier können Sie die Logik zum Weiterleiten zu anderen URLs basierend auf der ausgewählten Staffel hinzufügen
+            if (selectedSeason === "season1") {
+                window.location.href = "../staffel1"; // Ersetzen Sie "staffel1_url" durch die tatsächliche URL für Staffel 1
+            } else if (selectedSeason === "season2") {
+                window.location.href = "../staffel2/folge1.html"; // Ersetzen Sie "staffel2_url" durch die tatsächliche URL für Staffel 2
+            } else if (selectedSeason === "season3") {
+                window.location.href = "../staffel3/folge1.html"; // Ersetzen Sie "staffel2_url" durch die tatsächliche URL für Staffel 2
+            } else if (selectedSeason === "season4") {
+                window.location.href = "../staffel4/folge1.html"; // Ersetzen Sie "staffel2_url" durch die tatsächliche URL für Staffel 2
+            } else if (selectedSeason === "season5") {
+                window.location.href = "../staffel5/folge1.html"; // Ersetzen Sie "staffel2_url" durch die tatsächliche URL für Staffel 2
+            } else if (selectedSeason === "season6") {
+                window.location.href = "../staffel6/folge1.html"; // Ersetzen Sie "staffel2_url" durch die tatsächliche URL für Staffel 2
+            }
+        });
+
+        episodeDropdown.addEventListener("change", function () {
+            const selectedEpisode = episodeDropdown.value;
+            // Hier können Sie die Logik zum Weiterleiten zu anderen URLs basierend auf der ausgewählten Folge hinzufügen
+            if (selectedEpisode === "episode1") {
+                window.location.href = "folge1.html"; // Ersetzen Sie "folge1_url" durch die tatsächliche URL für Folge 1
+            } else if (selectedEpisode === "episode2") {
+                window.location.href = "folge2.html"; 
+            } else if (selectedEpisode === "episode3") {
+                window.location.href = "folge3.html"; 
+            } else if (selectedEpisode === "episode4") {
+                window.location.href = "folge4.html"; 
+            } else if (selectedEpisode === "episode5") {
+                window.location.href = "folge5.html"; 
+            } else if (selectedEpisode === "episode6") {
+                window.location.href = "folge6.html"; 
+            } else if (selectedEpisode === "episode7") {
+                window.location.href = "folge7.html"; 
+            }
+        });
+    </script>
+</body>
+</html>

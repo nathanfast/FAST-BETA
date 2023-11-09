@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FAST//VIDEO</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .video-container {
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+        }
+        video {
+            width: 100%;
+        }
+        .title-and-logo {
+            text-align: center;
+            padding: 10px;
+        }
+        h1 {
+            font-family: "Arial", sans-serif;
+            font-size: 24px;
+        }
+        .logo {
+            max-width: 100px;
+            margin: 0 auto;
+        }
+        .dropdowns {
+            display: flex;
+            justify-content: center;
+        }
+        select {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="title-and-logo">
+        <img src="logo.png" alt="Logo" class="logo">
+        <h1>Downton Abbey TRAILER</h1>
+    </div>
+    <div class="video-container">
+        <video controls autoplay>
+            <source src="trailer.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div class="dropdowns">
+        <select id="season-dropdown">
+            <option value="trailer">Trailer</option>
+            <option value="season1">Staffel 1</option>
+            <option value="season2">Staffel 2</option>
+            <!-- Weitere Staffeln hier hinzufügen -->
+        </select>
+    </div>
+
+    <script>
+        const seasonDropdown = document.getElementById("season-dropdown");
+        const episodeDropdown = document.getElementById("episode-dropdown");
+
+        seasonDropdown.addEventListener("change", function () {
+            const selectedSeason = seasonDropdown.value;
+            if (selectedSeason === "season1") {
+                window.location.href = "staffel1/folge1.html"; 
+            } else if (selectedSeason === "season2") {
+                window.location.href = "staffel2_url"; 
+            }
+        });
+
+        episodeDropdown.addEventListener("change", function () {
+            const selectedEpisode = episodeDropdown.value;
+            // Hier können Sie die Logik zum Weiterleiten zu anderen URLs basierend auf der ausgewählten Folge hinzufügen
+            if (selectedEpisode === "episode1") {
+                window.location.href = "folge1_url"; // Ersetzen Sie "folge1_url" durch die tatsächliche URL für Folge 1
+            } else if (selectedEpisode === "episode2") {
+                window.location.href = "folge2_url"; // Ersetzen Sie "folge2_url" durch die tatsächliche URL für Folge 2
+            }
+        });
+    </script>
+</body>
+</html>
